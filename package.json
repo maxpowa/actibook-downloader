@@ -1,0 +1,22 @@
+{
+  "name": "actibook-downloader",
+  "version": "1.0.0",
+  "description": "Rip pages from actibooks hosted magazines/comics and present them to the user as a zip (Currently only supports sun-a content)",
+  "scripts": {
+    "build": "parcel build ./main.ts && cat ./userscript.header > ./dist/actibookdl.user.js && cat ./dist/main.js >> ./dist/actibookdl.user.js"
+  },
+  "author": "maxpowa",
+  "license": "MIT",
+  "dependencies": {
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.0",
+    "jszip-utils": "^0.1.0",
+    "sanitize-filename": "^1.6.3"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "parcel": "^2.6.0",
+    "parcel-plugin-greasemonkey": "^1.0.3",
+    "process": "^0.11.10"
+  }
+}
