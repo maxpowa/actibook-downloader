@@ -7,15 +7,29 @@ declare var App: any;
 
 let running = false;
 
+export const checkIfDefinitionValid = async (definition) => {
+  const pieceDirectory = definition.get('pieceDirectory');
+  const url = new URL(`${pieceDirectory}/1.jpg`, document.baseURI).href;
+  const response = await fetch(url);
+  const body = await response.text();
+  if (body.length > 0) return true;
+  return false;
+}
+
 export const downloadBookAsZip = async (book) => {
   if (running) return;
   running = true;
 
   console.log(`Ripping ${book.lastPage} pages...`);
 
+  const isHd = await checkIfDefinitionValid(book.hd);
+  const definition = isHd ? book.hd : book.sd;
+
+  console.log(`Using ${isHd ? 'HD' : 'SD'} quality`);
+
   const pages = await Promise.all([...(new Array(book.lastPage)).keys()]
     .map(pageNo => {
-      const url = new URL(`${book.hd.get('pieceDirectory')}/${pageNo + 1}.jpg`, document.baseURI).href;
+      const url = new URL(`${definition.get('pieceDirectory')}/${pageNo + 1}.jpg`, document.baseURI).href;
       return getBinaryContent(url).then((data: Blob) => {
         console.log(`Ripped page ${pageNo}, ${Math.trunc((pageNo / book.lastPage) * 100)}% complete`)
         return ({ filename: url.split('/').pop(), data });

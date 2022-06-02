@@ -2,7 +2,7 @@
 // @name         Actibook Downloader
 // @namespace    http://actibooks.sucks.real.bad
 // @description  Rip pages from actibooks hosted magazines/comics and present them to the user as a zip (Currently only supports sun-a content)
-// @match        https://3a.as-books.jp/html5_ssl/view/*/
+// @match        https://*.as-books.jp/html5_ssl/view/*/
 // @grant        none
 // ==/UserScript==
 
